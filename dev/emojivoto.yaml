@@ -1,26 +1,33 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: emojivoto
+  annotations:
+    linkerd.io/inject: enabled
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: emoji
-
+  namespace: emojivoto
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: voting
-
+  namespace: emojivoto
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: web
-
+  namespace: emojivoto
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: emoji-svc
-
+  namespace: emojivoto
 spec:
   ports:
   - name: grpc
@@ -36,7 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: voting-svc
-
+  namespace: emojivoto
 spec:
   ports:
   - name: grpc
@@ -52,7 +59,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web-svc
-
+  namespace: emojivoto
 spec:
   ports:
   - name: http
@@ -70,7 +77,7 @@ metadata:
     app.kubernetes.io/part-of: emojivoto
     app.kubernetes.io/version: v11
   name: emoji
-
+  namespace: emojivoto
 spec:
   replicas: 1
   selector:
@@ -82,8 +89,6 @@ spec:
       labels:
         app: emoji-svc
         version: v11
-      annotations:
-        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
@@ -111,7 +116,7 @@ metadata:
     app.kubernetes.io/part-of: emojivoto
     app.kubernetes.io/version: v11
   name: vote-bot
-
+  namespace: emojivoto
 spec:
   replicas: 1
   selector:
@@ -123,8 +128,6 @@ spec:
       labels:
         app: vote-bot
         version: v11
-      annotations:
-        linkerd.io/inject: enabled
     spec:
       containers:
       - command:
@@ -146,7 +149,7 @@ metadata:
     app.kubernetes.io/part-of: emojivoto
     app.kubernetes.io/version: v11
   name: voting
-
+  namespace: emojivoto
 spec:
   replicas: 1
   selector:
@@ -158,8 +161,6 @@ spec:
       labels:
         app: voting-svc
         version: v11
-      annotations:
-        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
@@ -187,7 +188,7 @@ metadata:
     app.kubernetes.io/part-of: emojivoto
     app.kubernetes.io/version: v11
   name: web
-
+  namespace: emojivoto
 spec:
   replicas: 1
   selector:
@@ -199,8 +200,6 @@ spec:
       labels:
         app: web-svc
         version: v11
-      annotations:
-        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
