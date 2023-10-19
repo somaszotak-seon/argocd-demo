@@ -82,6 +82,8 @@ spec:
       labels:
         app: emoji-svc
         version: v11
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
@@ -121,6 +123,8 @@ spec:
       labels:
         app: vote-bot
         version: v11
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - command:
@@ -154,6 +158,8 @@ spec:
       labels:
         app: voting-svc
         version: v11
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
@@ -193,6 +199,8 @@ spec:
       labels:
         app: web-svc
         version: v11
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - env:
